@@ -11,6 +11,9 @@ use alloc::{
     vec::Vec,
 };
 
+#[cfg(target_has_atomic = "ptr")]
+use alloc::sync::Arc;
+
 use crate::buf::IntoIter;
 #[allow(unused)]
 use crate::loom::sync::atomic::AtomicMut;
@@ -1011,6 +1014,13 @@ impl From<Box<[u8]>> for Bytes {
                 vtable: &PROMOTABLE_ODD_VTABLE,
             }
         }
+    }
+}
+
+#[cfg(target_has_atomic = "ptr")]
+impl From<Arc<[u8]>> for Bytes {
+    fn from(arc: Arc<[u8]>) -> Bytes {
+        Bytes::from_owner(arc)
     }
 }
 
