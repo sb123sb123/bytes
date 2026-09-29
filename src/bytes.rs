@@ -11,7 +11,7 @@ use alloc::{
     vec::Vec,
 };
 
-#[cfg(target_has_atomic = "ptr")]
+#[cfg(bytes_has_atomic_ptr)]
 use alloc::sync::Arc;
 
 use crate::buf::IntoIter;
@@ -1017,7 +1017,7 @@ impl From<Box<[u8]>> for Bytes {
     }
 }
 
-#[cfg(target_has_atomic = "ptr")]
+#[cfg(bytes_has_atomic_ptr)]
 impl From<Arc<[u8]>> for Bytes {
     fn from(arc: Arc<[u8]>) -> Bytes {
         Bytes::from_owner(arc)
