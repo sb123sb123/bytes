@@ -67,6 +67,7 @@ fn from_slice() {
     assert_eq!(Vec::from(&b"abcdefgh"[..]), a);
 }
 
+#[cfg(target_has_atomic = "ptr")]
 #[test]
 fn from_arc() {
     let source: Arc<[u8]> = Arc::from(&b"abcdefgh"[..]);
